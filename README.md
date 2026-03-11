@@ -21,6 +21,7 @@ MU-TH-ER is a collaborative movie selection tool designed for groups. When multi
 - [ ] Movie data fetched from IMDb
 - [ ] Showtime data from the Pathe API
 - [ ] Voting system for group movie & showtime selection
+- [ ] Test (unit & integration tests)
 
 ## Getting Started
 
