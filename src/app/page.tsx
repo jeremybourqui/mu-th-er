@@ -1,8 +1,9 @@
 "use client";
+import { useState, useEffect } from "react";
+import { createUser, createMovie, getMovies } from "@/lib/api"
+import { Movie } from "@/db/schema"
 import { log } from "console";
-import { useState } from "react";
-import { createUser, createMovie } from "@/lib/api"
-import { title } from "process";
+
 
 export default function Home() {
 
@@ -11,17 +12,30 @@ export default function Home() {
 
   async function handleUserSubmit() {
     await createUser(name, email);
-    console.log('user posted');
   }
 
   const [movie, setMovie] = useState("")
 
-  async function handleMovieSubmit() {
-    console.log('test handle');
-    
-    await createMovie(movie);
-    console.log('movie created');
+  async function fetchMovies() {
+    const movies = await getMovies();
+    setMovieList(movies);
   }
+
+  async function handleMovieSubmit() {
+    await createMovie(movie);
+    fetchMovies();
+
+  }
+
+  const [movieList, setMovieList] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    async function runEffect() {
+      fetchMovies();
+    }
+    runEffect();
+  }, []);
+
 
   return (
     <>
@@ -33,10 +47,20 @@ export default function Home() {
         </form>
       </div>
       <div>
-        <form onSubmit={(e) => { e.preventDefault(); handleMovieSubmit()}}>
-          <input value={movie} onChange={(e) => {setMovie(e.target.value); console.log('test change')}} placeholder="Movie" />
+        <form onSubmit={(e) => { e.preventDefault(); handleMovieSubmit() }}>
+          <input value={movie} onChange={(e) => { setMovie(e.target.value); console.log('test change') }} placeholder="Movie" />
           <button type="submit">Add Movie</button>
         </form>
+        <ul>
+          {movieList.length > 0 && (
+
+            movieList.map((movie) =>
+              <li key={movie.id}>
+                {movie.original_title}
+              </li>
+            )
+          )}
+        </ul>
       </div>
     </>
   );
