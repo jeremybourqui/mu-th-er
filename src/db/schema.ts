@@ -5,3 +5,8 @@ export const users = sqliteTable("users", {
   name: text("name").notNull(),
   email: text("email").notNull(),
 });
+
+export const movies = sqliteTable("movies", {
+  id: integer("id").primaryKey({ autoIncrement: true}),
+  original_title: text("original_title").notNull(),
+});
