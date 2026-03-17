@@ -17,7 +17,7 @@ export async function createMovie(original_title: string){
 }
 
 export async function removeMovie(id: number) {
-  const res = await fetch(`/api/users/${id}`, {
+  const res = await fetch(`/api/movies/${id}`, {
     method: "DELETE"
   });
   return res.json();
