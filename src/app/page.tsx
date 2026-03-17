@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { createUser, createMovie, getMovies, removeMovie } from "@/lib/api"
-import { Movie } from "@/db/schema"
+import { createUser, getUsers, removeUser, createMovie, getMovies, removeMovie } from "@/lib/api"
+import { Movie, User } from "@/db/schema";
+import styles from "./page.module.css";
 import { log } from "console";
 
 export default function Home() {
@@ -20,24 +21,37 @@ export default function Home() {
     setMovieList(movies);
   }
 
+  async function fetchUsers() {
+    const users = await getUsers()
+    setUserList(users);
+  }
+
   async function handleMovieSubmit() {
     await createMovie(movie);
     fetchMovies();
   }
 
   async function handleMovieDelete(id: number) {
-    await removeMovie(id)
+    await removeMovie(id);
     fetchMovies();
   }
 
+  async function handleUserDelete(id: number) {
+    await removeUser(id);
+    fetchUsers();
+  }
+
   const [movieList, setMovieList] = useState<Movie[]>([]);
+  const [userList, setUserList] = useState<User[]>([]);
 
   useEffect(() => {
     async function runEffect() {
       fetchMovies();
+      fetchUsers();
     }
     runEffect();
   }, []);
+
 
   return (
     <>
@@ -56,9 +70,16 @@ export default function Home() {
           <button type="submit">Add Movie</button>
         </form>
       </div>
-      <div>
+      <div className={styles.contentColumns}>
         <div>
           <h3>user</h3>
+          {userList.length > 0 && (
+            userList.map((user) =>
+              <li key={user.id}>
+                {user.name}
+                <button onClick={() => handleUserDelete(user.id)}>X</button>
+              </li>
+            ))}
         </div>
         <div>
           <h3>movie</h3>
@@ -67,7 +88,7 @@ export default function Home() {
               movieList.map((movie) =>
                 <li key={movie.id}>
                   {movie.original_title}
-                  <button onClick={()=>handleMovieDelete(movie.id)}>X</button>
+                  <button onClick={() => handleMovieDelete(movie.id)}>X</button>
                 </li>
               )
             )}

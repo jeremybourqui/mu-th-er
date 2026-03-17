@@ -7,6 +7,18 @@ export async function createUser(name: string, email: string) {
   return res.json();
 }
 
+export async function getUsers() {
+  const res = await fetch(`/api/users`);
+  return res.json();
+}
+
+export async function removeUser(id: number) {
+  const res = await fetch(`/api/users/${id}`, {
+    method: "DELETE"
+  });
+  return res.json();
+}
+
 export async function createMovie(original_title: string){
   const res = await fetch("/api/movies", {
     method: "POST",
