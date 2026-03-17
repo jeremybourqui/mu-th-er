@@ -8,8 +8,7 @@ export async function POST(req: Request) {
   return NextResponse.json(newMovie);
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   const allMovies = db.select().from(movies).all();
   return NextResponse.json(allMovies);
 }
-

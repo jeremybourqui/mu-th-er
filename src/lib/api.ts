@@ -37,5 +37,28 @@ export async function removeMovie(id: number) {
 
 export async function getMovies() {
   const res = await fetch(`/api/movies`);
-  return res.json()
+  return res.json();
+}
+
+export async function getWatchlist() {
+  const res = await fetch('/api/watchlist')
+  return res.json();
+}
+
+export async function addMovietoWatchlist(userId: number, movieId: number) {
+  const res = await fetch(`/api/watchlist`, {
+    method: "POST",
+    headers: { "content-Type": "application/json" },
+    body: JSON.stringify({ userId, movieId})
+  });
+  return res.json();
+}
+
+export async function removeMoviefromWatchlist(params: { userId: number; movieId: number }) {
+  const res = await fetch(`/api/watchlist`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params)
+  });
+  return res.json();
 }

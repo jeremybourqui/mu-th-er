@@ -15,6 +15,13 @@
       "when": 1773395521518,
       "tag": "0001_mature_joseph",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1773757098430,
+      "tag": "0002_yellow_ultimates",
+      "breakpoints": true
     }
   ]
 }
