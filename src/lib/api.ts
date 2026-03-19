@@ -64,3 +64,8 @@ export async function removeMoviefromWatchlist(watchlistId: number ) {
   });
   return res.json();
 }
+
+export async function getCommonWatchlist(userId: number) {
+  const res = await fetch(`/api/watchlist/${userId}`)
+  return res.json();
+}

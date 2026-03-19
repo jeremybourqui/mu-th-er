@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { Movie, User, Watchlist, WatchlistWithMovie } from "@/db/schema";
-import { addUser, getUsers, removeUser, addMovie, getMovies, removeMovie, addMovietoWatchlist, getWatchlist, removeMoviefromWatchlist } from "@/lib/api";
+import { addUser, getUsers, removeUser, addMovie, getMovies, removeMovie, addMovietoWatchlist, getWatchlist, removeMoviefromWatchlist, getCommonWatchlist } from "@/lib/api";
 import styles from "./page.module.css";
 
 export default function dashboard() {
 
-    const userId = 1;
+    const userId = 14;
 
     const [movieList, setMovieList] = useState<Movie[]>([]);
     const [watchlist, setWatchlist] = useState<WatchlistWithMovie[]>([]);
+    const [commonWatchlist, setCommonWatchlist] = useState<WatchlistWithMovie[]>([])
 
     async function fetchMovies() {
         const movies = await getMovies();
@@ -22,11 +23,16 @@ export default function dashboard() {
         setWatchlist(watchlist);
     }
 
+    async function fetchCommonWatchlist() {
+        const commonWatchlist = await getCommonWatchlist(userId);
+        setCommonWatchlist(commonWatchlist);
+    }
+
     useEffect(() => {
         async function runEffect() {
             fetchMovies();
-            // fetchUsers();
             fetchWatchlist();
+            fetchCommonWatchlist();
         }
         runEffect();
     }, []);
@@ -34,13 +40,13 @@ export default function dashboard() {
     async function handleAddMovieToWatchlist(userId: number, movieId: number) {
         await addMovietoWatchlist(userId, movieId);
         await fetchWatchlist();
-        console.log({watchlist});
+        await fetchCommonWatchlist();
     }
 
     async function handleRemoveMovieFromWatchlist(watchlistId: number) {
-        console.log({habndel: watchlistId})
         await removeMoviefromWatchlist(watchlistId);
         await fetchWatchlist();
+        await fetchCommonWatchlist();
     }
 
     return (
@@ -62,13 +68,24 @@ export default function dashboard() {
                 <ul>
                     {watchlist.length > 0 && (
                         watchlist.map((watchlist) => {
-                            console.log({click: watchlist.watchlistId})
                             return <li key={watchlist.watchlistId}>
                                 {watchlist.movieOriginalTitle}{" "}
                                 <button onClick={() => handleRemoveMovieFromWatchlist(watchlist.watchlistId)}>-</button>
                             </li>
                         }
-                    ))}
+                        ))}
+                </ul>
+            </div>
+            <div>
+                <h3>Common watch list</h3>
+                <ul>
+                    {commonWatchlist.length > 0 && (
+                        commonWatchlist.map((commonWatchlist, index) => {
+                            return <li key={index}>
+                                {commonWatchlist.movieOriginalTitle}{" "}
+                            </li>
+                        }
+                        ))}
                 </ul>
             </div>
         </section >

@@ -25,3 +25,4 @@ export const watchlist = sqliteTable("watchlist", {
   userId: integer("user_id").notNull().references(() => users.id, {onDelete: "cascade"}),
   movieId: integer("movie_id").notNull().references(() => movies.id, {onDelete: "cascade"}),},
 (table) => [ unique().on(table.userId, table.movieId),]);
+
