@@ -10,6 +10,7 @@ import styles from "./page.module.css";
 export default function dashboard() {
 
     const userId = 1;
+    const userId = 1;
 
     const [movieList, setMovieList] = useState<Movie[]>([]);
     const [watchlist, setWatchlist] = useState<WatchlistWithMovie[]>([]);

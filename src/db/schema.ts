@@ -1,6 +1,5 @@
 import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { InferSelectModel } from "drizzle-orm";
-import { title } from "process";
 
 export type Movie = InferSelectModel<typeof movies>;
 export type User = InferSelectModel<typeof users>;
