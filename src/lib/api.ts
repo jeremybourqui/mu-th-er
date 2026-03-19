@@ -1,4 +1,4 @@
-export async function createUser(name: string, email: string) {
+export async function addUser(name: string, email: string) {
   const res = await fetch("/api/users", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -20,7 +20,7 @@ export async function removeUser(id: number) {
   return res.json();
 }
 
-export async function createMovie(original_title: string){
+export async function addMovie(original_title: string){
   const res = await fetch("/api/movies", {
     method: "POST",
     headers: { "Content-Type": "application/json"},

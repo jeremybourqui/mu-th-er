@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { createUser, getUsers, removeUser, createMovie, getMovies, removeMovie } from "@/lib/api"
+import { addUser, getUsers, removeUser, addMovie, getMovies, removeMovie } from "@/lib/api"
 import { Movie, User } from "@/db/schema";
 import styles from "./page.module.css";
 import { Console, log } from "console";
@@ -15,7 +15,7 @@ export default function admin() {
   const [email, setEmail] = useState("");
 
   async function handleUserSubmit() {
-    const { ok, data } = await createUser(name, email);;
+    const { ok, data } = await addUser(name, email);;
 
     if (!ok) {
       setUserMessage(data.error);
@@ -40,7 +40,7 @@ export default function admin() {
 
   async function handleMovieSubmit() {
     setMovieMessage("");
-    const { ok, data } = await createMovie(movie);
+    const { ok, data } = await addMovie(movie);
     if (!ok) {
       setMovieMessage(data.error);
     }

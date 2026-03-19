@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Movie, User, Watchlist, WatchlistWithMovie } from "@/db/schema";
-import { createUser, getUsers, removeUser, createMovie, getMovies, removeMovie, addMovietoWatchlist, getWatchlist, removeMoviefromWatchlist } from "@/lib/api";
+import { addUser, getUsers, removeUser, addMovie, getMovies, removeMovie, addMovietoWatchlist, getWatchlist, removeMoviefromWatchlist } from "@/lib/api";
 import styles from "./page.module.css";
-
-
 
 export default function dashboard() {
 
@@ -31,7 +29,6 @@ export default function dashboard() {
             fetchWatchlist();
         }
         runEffect();
-        
     }, []);
 
     async function handleAddMovieToWatchlist(userId: number, movieId: number) {
