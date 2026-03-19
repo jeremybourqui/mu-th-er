@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 import { Console, log } from "console";
 
 import Link from "next/link"
+import { ok } from "assert";
 
 export default function admin() {
 
@@ -14,7 +15,12 @@ export default function admin() {
   const [email, setEmail] = useState("");
 
   async function handleUserSubmit() {
-    await createUser(name, email);
+    const { ok, data } = await createUser(name, email);;
+
+    if (!ok) {
+      setUserMessage(data.error);
+    }
+    fetchUsers();
   }
 
   const [movie, setMovie] = useState("")
@@ -27,11 +33,17 @@ export default function admin() {
   async function fetchUsers() {
     const users = await getUsers()
     setUserList(users);
-    console.log()
   }
 
+  const [userMessage, setUserMessage] = useState("")
+  const [movieMessage, setMovieMessage] = useState("")
+
   async function handleMovieSubmit() {
-    await createMovie(movie);
+    setMovieMessage("");
+    const { ok, data } = await createMovie(movie);
+    if (!ok) {
+      setMovieMessage(data.error);
+    }
     fetchMovies();
   }
 
@@ -66,6 +78,7 @@ export default function admin() {
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
           <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
           <button type="submit">Add User</button>
+          {userMessage && <p>{userMessage}</p>}
         </form>
       </div>
       <div>
@@ -73,6 +86,7 @@ export default function admin() {
           <input value={movie} onChange={(e) => { setMovie(e.target.value) }} placeholder="Movie" />
           <button type="submit">Add Movie</button>
         </form>
+        {movieMessage && <p>{movieMessage}</p>}
       </div>
       <div className={styles.contentColumns}>
         <div>

@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `watchlist_user_id_movie_id_unique` ON `watchlist` (`user_id`,`movie_id`);

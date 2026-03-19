@@ -4,7 +4,8 @@ export async function createUser(name: string, email: string) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email }),
   });
-  return res.json();
+  const data = await res.json();
+  return { ok: res.ok, data };
 }
 
 export async function getUsers() {
@@ -25,7 +26,8 @@ export async function createMovie(original_title: string){
     headers: { "Content-Type": "application/json"},
     body: JSON.stringify({original_title})
   });
-  return res.json();
+  const data = await res.json();
+  return { ok: res.ok, data };
 }
 
 export async function removeMovie(id: number) {
@@ -55,7 +57,6 @@ export async function addMovietoWatchlist(userId: number, movieId: number) {
 }
 
 export async function removeMoviefromWatchlist(watchlistId: number ) {
-  console.log(watchlistId)
   const res = await fetch(`/api/watchlist`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },

@@ -10,7 +10,6 @@ import styles from "./page.module.css";
 export default function dashboard() {
 
     const userId = 1;
-    const userId = 1;
 
     const [movieList, setMovieList] = useState<Movie[]>([]);
     const [watchlist, setWatchlist] = useState<WatchlistWithMovie[]>([]);
@@ -36,9 +35,9 @@ export default function dashboard() {
     }, []);
 
     async function handleAddMovieToWatchlist(userId: number, movieId: number) {
-        addMovietoWatchlist(userId, movieId);
-        fetchWatchlist();
-        console.log(watchlist);
+        await addMovietoWatchlist(userId, movieId);
+        await fetchWatchlist();
+        console.log({watchlist});
     }
 
     async function handleRemoveMovieFromWatchlist(watchlistId: number) {

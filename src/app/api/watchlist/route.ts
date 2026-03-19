@@ -5,8 +5,15 @@ import { eq, and } from "drizzle-orm"
 
 export async function POST(req: Request) {
     const { userId, movieId } = await req.json();
-    const newEntry = db.insert(watchlist).values({ userId, movieId }).run();
-    return NextResponse.json(newEntry)
+
+    try {
+      const newEntry = db.insert(watchlist).values({ userId, movieId }).run();
+      return NextResponse.json(newEntry)
+    } catch (error) {
+      return NextResponse.json(
+      { error: "Already in your watchlist"},
+      { status: 409 }
+    )}
 }
 
 export async function GET() {
