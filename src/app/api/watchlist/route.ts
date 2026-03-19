@@ -24,7 +24,7 @@ export async function GET() {
     })
     .from(watchlist)
     .innerJoin(movies, eq(watchlist.movieId, movies.id))
-    .where(eq(watchlist.userId, 1))
+    .where(eq(watchlist.userId, 14))
     .all();
     return NextResponse.json(list);
 }

@@ -18,7 +18,7 @@ export default function dashboard() {
     }
 
     async function fetchWatchlist() {
-        const watchlist = await getWatchlist();
+        const watchlist = await getWatchlist(userId);
         setWatchlist(watchlist);
     }
 

@@ -42,8 +42,8 @@ export async function getMovies() {
   return res.json();
 }
 
-export async function getWatchlist() {
-  const res = await fetch('/api/watchlist')
+export async function getWatchlist(userId: number,) {
+  const res = await fetch(`/api/watchlist/${userId}`)
   return res.json();
 }
 
