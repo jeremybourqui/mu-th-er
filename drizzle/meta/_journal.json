@@ -43,6 +43,13 @@
       "when": 1773926586727,
       "tag": "0005_handy_shiver_man",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1775138710183,
+      "tag": "0006_superb_madame_web",
+      "breakpoints": true
     }
   ]
 }

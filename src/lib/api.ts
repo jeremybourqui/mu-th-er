@@ -13,6 +13,11 @@ export async function getUsers() {
   return res.json();
 }
 
+export async function getUserByEmail(email: string) {
+  const res = await fetch(`/api/users/${email}`);
+  return res.json();
+}
+
 export async function removeUser(id: number) {
   const res = await fetch(`/api/users/${id}`, {
     method: "DELETE"
